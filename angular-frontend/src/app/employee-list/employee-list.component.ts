@@ -10,18 +10,45 @@ import { Router } from '@angular/router';
 export class EmployeeListComponent implements OnInit {
 
   employees: Employee[];
-
+  searchBySalary : boolean = false; 
+  searchText: string;
   constructor(private employeeService: EmployeeService,
     private router: Router) { }
 
   ngOnInit(): void {
+    if(this.router.url === "/employee-salary/5000"){
+     
+      this.searchBySalary = true;
+    }
     this.getEmployees();
   }
 
+   searchKey(data: string) {
+    this.searchText = data;
+    this.search();
+   }
+
+  search() {
+     this.employees = this.searchText === ""? this.employees : this.employees.filter((element) => {
+       return element.firstName == this.searchText || element.lastName == this.searchText || element.phone == this.searchText 
+       || element.emailId == this.searchText || element.address == this.searchText;
+     });
+  }
   private getEmployees(){
-    this.employeeService.getEmployeesList().subscribe(data => {
-      this.employees = data;
-    });
+    if(this.searchBySalary){
+      this.employeeService.salaryEmployee("5000").subscribe(data => {
+        this.employees = data;
+      });
+    }else{
+      this.employeeService.getEmployeesList().subscribe(data => {
+        this.employees = data;
+      });
+    }
+
+  }
+
+  private searchEmployees(){
+    
   }
 
   employeeDetails(id: number){

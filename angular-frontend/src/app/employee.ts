@@ -3,4 +3,7 @@ export class Employee {
     firstName: string;
     lastName: string;
     emailId: string;
+    phone: string;
+    salary: number;
+    address: string;
 }

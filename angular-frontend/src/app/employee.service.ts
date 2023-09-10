@@ -16,6 +16,11 @@ export class EmployeeService {
     return this.httpClient.get<Employee[]>(`${this.baseURL}`);
   }
 
+  //employee/salary/{salary}
+  salaryEmployee(salary: string): Observable<Employee[]>{
+      return this.httpClient.get<Employee[]>(`${this.baseURL}/salary/${salary}`);
+  }
+
   createEmployee(employee: Employee): Observable<Object>{
     return this.httpClient.post(`${this.baseURL}`, employee);
   }
@@ -31,4 +36,11 @@ export class EmployeeService {
   deleteEmployee(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
+
+  //employees/search/{searchkey}
+  searchEmployee(key: string): Observable<Object>{
+    return this.httpClient.delete(`${this.baseURL}/search/${key}`);
+  }
+
+
 }
