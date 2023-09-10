@@ -36,8 +36,9 @@ public class EmployeeController {
 	}		
 	
 	// get employees whose salary is grater than {salary}
+	@CrossOrigin(origins = "*")
 	@GetMapping("/employee/salary/{salary}")
-	public List<Employee> getAllEmployees(@PathVariable int salary){
+	public List<Employee> get5kEmployees(@PathVariable int salary){
 		List<Employee> empList = employeeRepository.findAll();
 		return empList.stream().filter(emp->emp.getSalary() > salary).collect(Collectors.toList());
 		 
